@@ -33,4 +33,8 @@ class AuctionLot(models.Model):
             # for the first time saved, set end_price to start_price
             self.end_price = self.start_price
         super().save(*args, **kwargs)
+
+
+class Bid(models.Model):
+    pass
         
