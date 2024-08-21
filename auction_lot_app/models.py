@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import timedelta, datetime
 from django.utils.timezone import now
-# Create your models here.
+from django.contrib.auth.models import User
 
 
 class AuctionLot(models.Model):
@@ -36,5 +36,10 @@ class AuctionLot(models.Model):
 
 
 class Bid(models.Model):
-    pass
+    auction_lot = models.ForeignKey(AuctionLot, on_delete=models.CASCADE)
+    participant = models.ForeignKey(User, on_delete=models.CASCADE)
+    bid_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f'{self.participant} - {self.auction_lot.title} - {self.bid_price}'
         
