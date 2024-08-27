@@ -42,4 +42,3 @@ class Bid(models.Model):
 
     def __str__(self):
         return f'{self.participant} - {self.auction_lot.title} - {self.bid_price}'
-        
