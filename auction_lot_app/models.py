@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import timedelta, datetime
 from django.utils.timezone import now
-# Create your models here.
+from django.contrib.auth.models import User
 
 
 class AuctionLot(models.Model):
@@ -33,4 +33,12 @@ class AuctionLot(models.Model):
             # for the first time saved, set end_price to start_price
             self.end_price = self.start_price
         super().save(*args, **kwargs)
-        
+
+
+class Bid(models.Model):
+    auction_lot = models.ForeignKey(AuctionLot, on_delete=models.CASCADE)
+    participant = models.ForeignKey(User, on_delete=models.CASCADE)
+    bid_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f'{self.participant} - {self.auction_lot.title} - {self.bid_price}'
